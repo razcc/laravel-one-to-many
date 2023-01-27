@@ -15,7 +15,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::All();
+        $posts = Post::paginate(10);
 
         return view('admin.post.index', compact('posts'));
     }
@@ -27,7 +27,8 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('admin.post.create');
     }
 
     /**
@@ -38,7 +39,24 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $var = $request->all();
+
+        $request->validate(
+            [
+                'title' => 'required|max:50',
+                'description' => 'required|max:250'
+            ],
+            [
+                'title.max' => 'Attenzione il campo non deve superare i 50 caratteri',
+                'description.max' => 'Non si possono avere piu di 250 caratteri'
+            ]
+        );
+
+        $new_record = new Post();
+        $new_record->fill($var);
+        $new_record->save();
+
+        return redirect()->route('admin.posts.index');
     }
 
     /**
@@ -51,7 +69,7 @@ class PostsController extends Controller
     {
 
         $singolo_post = Post::findorFail($id);
-        
+
         return view('admin.post.show', compact('singolo_post'));
     }
 
@@ -63,7 +81,9 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        return view('admin.post.edit', compact('post'));
     }
 
     /**
@@ -75,7 +95,22 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $singolo_post = Post::findOrFail($id);
+        $request->validate(
+            [
+                'title' => 'required|max:50',
+                'description' => 'required|max:250'
+            ],
+            [
+                'title.max' => 'Attenzione il campo non deve superare i 50 caratteri',
+                'description.max' => 'Non si possono avere piu di 250 caratteri'
+            ]
+        );
+
+        $singolo_post->update($data);
+
+        return redirect()->route('admin.posts.index');
     }
 
     /**
@@ -86,6 +121,8 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Post::findOrFail($id);
+        $data->delete();
+        return redirect()->route('admin.posts.index');
     }
 }
