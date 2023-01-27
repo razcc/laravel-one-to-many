@@ -23,13 +23,24 @@
 
         </div>
         <div class="mb-3">
-            <label fo class="form-label">Description</label>
+            <label class="form-label">Description</label>
             <input name="description" type="text" class="form-control @error('description') is-invalid @enderror">
         </div>
         {{-- @error('description')
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror --}}
+        <div class="mb-3">
+            <label>Categorie</label>
+            <select class="form-controll" name="category_id">
+                <option value="">Seleziona la categoria</option>
 
+                @foreach ($categories as $elem)
+                    <option value="{{ $elem['id'] }}">{{ $elem['name'] }}</option>
+                @endforeach
+            </select>
+
+
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 @endsection

@@ -13,6 +13,7 @@
                 <th scope="col">ID</th>
                 <th scope="col">Title</th>
                 <th scope="col">Description</th>
+                <th scope="col">Category ID</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -28,6 +29,7 @@
                         </a>
                     </td>
                     <td>{{ $post['description'] }}</td>
+                    <td>{{ $post['category_id'] }}</td>
                     <td>
                         <a href="{{ route('admin.posts.edit', $post['id']) }}">
                             Edit
