@@ -14,7 +14,11 @@
             @foreach ($posts as $post )
             <tr>                
                 <td>{{ $post['id'] }}</td>
-                <td>{{ $post['title'] }}</td>
+                <td>
+                    <a href=" {{ route('admin.posts.show', $post['id']) }}">
+                        {{ $post['title'] }}
+                    </a>
+                </td>
                 <td>{{ $post['description'] }}</td>
                 <td>
                     <a href="{{ route('admin.posts.edit', $post['id']) }}">Edit</a>
