@@ -24,7 +24,18 @@
             <input value="{{ $post['description'] }}" name="description" type="text" class="form-control">
         </div>
 
+        <div class="mb-3">
+            <label>Categorie</label>
+            <select class="form-controll" name="category_id">
+                <option value="">Seleziona la categoria</option>
 
+                @foreach ($categories as $elem)
+                    <option value="{{ $elem['id'] }}">{{ $elem['name'] }}</option>
+                @endforeach
+            </select>
+
+
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 @endsection

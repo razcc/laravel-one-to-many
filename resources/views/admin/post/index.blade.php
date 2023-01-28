@@ -29,7 +29,10 @@
                         </a>
                     </td>
                     <td>{{ $post['description'] }}</td>
-                    <td>{{ $post['category_id'] }}</td>
+
+
+                    {{-- CategoryId colonna --}}
+                    <td>{{ $post['category']['name']?? ''}}</td>
                     <td>
                         <a href="{{ route('admin.posts.edit', $post['id']) }}">
                             Edit
